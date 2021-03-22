@@ -52,6 +52,7 @@ Some assumptions:
 
 - only bitfinex data was used
 - jobs are scheduled using time.sleep(60), so it's not perfectly scheduled once a minute
+- some important things are missing such as error handling, some useful endpoints like `/all`, and others
 
 ## Next steps
 

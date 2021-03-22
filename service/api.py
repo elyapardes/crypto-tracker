@@ -43,10 +43,6 @@ def home():
 '''
 
 
-@app.route(api_path + '/pairs/all', methods=['GET'])
-def api_all():
-    return jsonify(pairs)
-
 
 @app.route(api_path + '/pair/<pair>', methods=['GET'])
 def api_id(pair):
