@@ -139,3 +139,4 @@ Our new job would then run through the necessary checks and send out email/slack
 - Making our service idempotent: Right now, the fetcher loads data "as it comes". We may want to make the job idempotent,
   i.e. if we run the job several times, we may not want to reingest data for the same time ranges.
 - Add some more intuitive REST arguments, such as timestamps rather than pair_last_day
+- Writing to the DB is done in batches which is currently a little slow.
