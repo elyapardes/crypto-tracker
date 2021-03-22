@@ -12,7 +12,15 @@ Run the following from the root folder of this repo:
 docker-compose up
 ```
 
-The docker-compose yaml is using version 3.8, the daemon version was 
+The docker-compose is version 1.28.5, and the yaml spec is using version 3.8. 
+
+If you run into errors while building, try running 
+
+```
+docker-compose down
+docker-compose build
+docker-compose up
+```
 
 The services can also be run separately. They were built using Python 3.9. Other versions may work but were not tested.
 
