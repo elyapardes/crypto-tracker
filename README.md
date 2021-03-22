@@ -34,15 +34,24 @@ if needed.
 
 There are 3 parts to this tracker: 
 
-- The data fetcher
-- AWS DynamoDB
-- The backend service
+1. The data fetcher - this is a scheduled python script which makes async HTTP requests to Cryptowat.ch 
+  to get the latest prices for each currency pair
+  
+2. AWS DynamoDB: This is a local version of DynamoDB. Data is structured as follows:
+  - currency pair as HASH key
+  - timestamp as RANGE key
+  - value has price
+  
+23 The backend service: This is a Flask application which exposes REST endpoints. Some examples:
+  - latest price for currency pair: http://127.0.0.1:5000/service/v1/pair/btcusd
+  - last day's prices for currency pair: http://127.0.0.1:5000/service/v1/pair_last_dat/btcusd
+  - standard deviation for currency pair: http://127.0.0.1:5000/service/v1/std/btcusd
+  - rank several currency pairs: http://127.0.0.1:5000/service/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
 
 Some assumptions:
 
 - only bitfinex data was used
-- jobs are scheduled using time.sleep(60), so it's not perfectly scheduled once a minute.
-- 
+- jobs are scheduled using time.sleep(60), so it's not perfectly scheduled once a minute
 
 ## Next steps
 
@@ -117,4 +126,4 @@ Our new job would then run through the necessary checks and send out email/slack
   It may make sense also to find an API which provides history prices which could help to backfill jobs if our service goes down.
 - Making our service idempotent: Right now, the fetcher loads data "as it comes". We may want to make the job idempotent,
   i.e. if we run the job several times, we may not want to reingest data for the same time ranges.
-  
+- Add some more intuitive REST arguments, such as timestamps rather than pair_last_day

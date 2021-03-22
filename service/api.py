@@ -36,9 +36,10 @@ def home():
     return '''<h1>Welcome!</h1>
 <p>This is an API for cryptocurrencies data.</p>
 <p>Here are some examples:</p>
-<li>http://127.0.0.1:5000/service/v1/pair/btcusd
-<li>http://127.0.0.1:5000/service/v1/pair/btcusd
-<li>http://127.0.0.1:5000/service/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
+<li>latest price for currency pair: http://127.0.0.1:5000/service/v1/pair/btcusd
+<li>last day's prices for currency pair: http://127.0.0.1:5000/service/v1/pair_last_dat/btcusd
+<li>standard deviation for currency pair: http://127.0.0.1:5000/service/v1/std/btcusd
+<li>rank several currency pairs: http://127.0.0.1:5000/service/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
 '''
 
 
