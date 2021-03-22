@@ -42,7 +42,7 @@ There are 3 parts to this tracker:
   - timestamp as RANGE key
   - value has price
   
-23 The backend service: This is a Flask application which exposes REST endpoints. Some examples:
+3. The backend service: This is a Flask application which exposes REST endpoints. Some examples:
   - latest price for currency pair: http://127.0.0.1:5000/service/v1/pair/btcusd
   - last day's prices for currency pair: http://127.0.0.1:5000/service/v1/pair_last_dat/btcusd
   - standard deviation for currency pair: http://127.0.0.1:5000/service/v1/std/btcusd
