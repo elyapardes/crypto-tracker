@@ -9,12 +9,12 @@ Using docker-compose (assuming you have [Docker Desktop](https://www.docker.com/
 
 Run the following from the root folder of this repo: 
 ```
-
 docker-compose up
 ```
 
-The services can also be run separately.
-Assuming you have Python >3.4 installed:
+The docker-compose yaml is using version 3.8, the daemon version was 
+
+The services can also be run separately. They were built using Python 3.9. Other versions may work but were not tested.
 
 ```
 python3 -m venv venv 
@@ -25,8 +25,11 @@ pip3 install -r fetcher/requirements.txt
 python3 -m fetcher.main
 ```
 
-TODO Caveat: I haven't found a way to easily run dynamoDB locally without Docker, instructions can be found [here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+
+TODO Caveats: 
+- I haven't found a way to easily run dynamoDB locally without Docker, instructions can be found [here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
 if needed.
+- Minor changes have to be made to run the code without docker-compose, notably `http://dynamodb-local:8000` should be replaced with localhost.
 
 ## Architecture
 

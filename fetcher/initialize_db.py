@@ -43,14 +43,15 @@ table.meta.client.get_waiter('table_exists').wait(TableName='bitfinex_pair_price
 print("Currently, there are " + str(table.item_count) + " rows in the table.")
 print("Seeding with a few minutes of data (may be older than 24 hours depending on when this is run...)")
 
-with open('../fixtures/bitfinex_prices/4min_of_bitfinex_prices_fixed.json') as f:
-    data = json.load(f)
+# Load some fixtures
+# with open('../fixtures/bitfinex_prices/4min_of_bitfinex_prices_fixed.json') as f:
+#     data = json.load(f)
 
 
-load_to_dynamodb(table, data)
+# load_to_dynamodb(table, data)
 
 
-
+print("Initializing table in db")
 
 time.sleep(2)
 response = table.get_item( Key = {'pair': 'ethusd', 'ts': "2021-03-19T18:24:30.082044"} )

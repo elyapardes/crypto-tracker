@@ -29,7 +29,43 @@ def run_async(pairs):
 if __name__ == '__main__':
 
     dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000", region_name='local')
-    table = dynamodb.Table('bitfinex_pair_prices')
+
+    # TODO this initialization should be cleaned up, right now only runs once then try catch is used to avoid recreating
+    try:
+        print("Initializing table in dynamodb")
+        table = dynamodb.create_table(
+            TableName='bitfinex_pair_prices',
+            KeySchema=[
+                {
+                    'AttributeName': 'pair',
+                    'KeyType': 'HASH'
+                },
+                {
+                    'AttributeName': 'ts',
+                    'KeyType': 'RANGE'
+                }
+            ],
+            AttributeDefinitions=[
+                {
+                    'AttributeName': 'pair',
+                    'AttributeType': 'S'
+                },
+                {
+                    'AttributeName': 'ts',
+                    'AttributeType': 'S'
+                }
+            ],
+            ProvisionedThroughput={
+                'ReadCapacityUnits': 5,
+                'WriteCapacityUnits': 5
+            }
+        )
+
+        # Wait until the table exists.
+        table.meta.client.get_waiter('table_exists').wait(TableName='bitfinex_pair_prices')
+    except:
+        print("Table already exists, skipping initialization")
+        table = dynamodb.Table('bitfinex_pair_prices')
 
     # using flat file for now as a list of currency pairs for each exchange
     with open('fetcher/markets.json') as f:
