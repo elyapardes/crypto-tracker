@@ -9,16 +9,24 @@ Using docker-compose (assuming you have [Docker Desktop](https://www.docker.com/
 
 Run the following from the root folder of this repo: 
 ```
+
 docker-compose up
 ```
 
-TODO Caveat: I ran into some networking quirks when trying to run the API service via docker-compose. 
-I think it's probably something simple that I'm missing, but for now it has to be run separately using: (assuming you have Python >3.4 installed)
+The services can also be run separately.
+Assuming you have Python >3.4 installed:
 
 ```
-pip 
-python -m service.api
+python3 -m venv venv 
+source venv2/bin/activate
+pip3 install -r service/requirements.txt
+python3 -m service.api
+pip3 install -r fetcher/requirements.txt
+python3 -m fetcher.main
 ```
+
+TODO Caveat: I haven't found a way to easily run dynamoDB locally without Docker, instructions can be found [here](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html)
+if needed.
 
 ## Architecture
 
@@ -30,7 +38,11 @@ There are 3 parts to this tracker:
 - AWS DynamoDB
 - The backend service
 
-TODO schematic
+Some assumptions:
+
+- only bitfinex data was used
+- jobs are scheduled using time.sleep(60), so it's not perfectly scheduled once a minute.
+- 
 
 ## Next steps
 
@@ -106,46 +118,3 @@ Our new job would then run through the necessary checks and send out email/slack
 - Making our service idempotent: Right now, the fetcher loads data "as it comes". We may want to make the job idempotent,
   i.e. if we run the job several times, we may not want to reingest data for the same time ranges.
   
-
-### Testing
-
-### Feature request
-
-
-
-
-Why use async https://stackoverflow.com/questions/27435284/multiprocessing-vs-multithreading-vs-asyncio-in-python-3
-
-- Monitoring
-
-- CI/CD
-
-- tests
-
-- Rest goodies:
-
-https://flask-restful.readthedocs.io/en/latest/quickstart.html
-
-https://flask-restplus.readthedocs.io/en/stable/quickstart.html potentially not maintained based on https://stackoverflow.com/questions/40165665/flask-restful-vs-flask-restplus
-https://github.com/python-restx/flask-restx
-
-- pricing
-
-- incremental std
-
-- evaluate other APIs
-
-
-- currently strictly using pairs, break it down by currency combo
-
-
-
-makefile:
-
-backend
-
-python -m backend.api
-
-unittest
-
- python -m unittest

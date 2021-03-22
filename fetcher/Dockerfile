@@ -3,7 +3,7 @@ WORKDIR .
 COPY requirements.txt /fetcher/requirements.txt
 # Fixes weird PEP 517 error
 RUN apk add --no-cache gcc musl-dev linux-headers
-RUN pip install -r /fetcher/requirements.txt
+RUN pip3 install -r /fetcher/requirements.txt
 COPY . /fetcher
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3"]
 CMD ["-u", "-m", "fetcher.main"]

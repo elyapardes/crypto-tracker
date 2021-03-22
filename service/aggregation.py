@@ -3,7 +3,12 @@ from . import ddb_controller as db
 
 
 def compute_std(sample):
+    """
+    Computes standard deviation of list of values.
+    A possible optimization could be to do incremental calculation, though I haven't researched this yet:
+    https://math.stackexchange.com/questions/102978/incremental-computation-of-standard-deviation
 
+    """
     # sample = [1, 2, 3, 4, 5]
 
     res = statistics.stdev(sample)

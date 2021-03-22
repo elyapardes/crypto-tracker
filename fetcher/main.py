@@ -28,7 +28,7 @@ def run_async(pairs):
 
 if __name__ == '__main__':
 
-    dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000", region_name='local')
+    dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000", region_name='local')
     table = dynamodb.Table('bitfinex_pair_prices')
 
     # using flat file for now as a list of currency pairs for each exchange
@@ -44,8 +44,8 @@ if __name__ == '__main__':
         pairs_for_bitfinex.append(market_pair['pair'])
         cnter += 1
         # Can be used to reduce allowance usage
-        if cnter==2:
-            break
+        # if cnter==2:
+        #     break
 
     for i in range(0, 500):
         res = run_async(pairs_for_bitfinex)

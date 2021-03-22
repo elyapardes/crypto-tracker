@@ -34,7 +34,12 @@ def get_pair_data(pair): # TODO replace
 @app.route('/', methods=['GET'])
 def home():
     return '''<h1>Welcome!</h1>
-<p>This is an API for cryptocurrencies data.</p>'''
+<p>This is an API for cryptocurrencies data.</p>
+<p>Here are some examples:</p>
+<li>http://127.0.0.1:5000/service/v1/pair/btcusd
+<li>http://127.0.0.1:5000/service/v1/pair/btcusd
+<li>http://127.0.0.1:5000/service/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
+'''
 
 
 @app.route(api_path + '/pairs/all', methods=['GET'])
@@ -61,7 +66,7 @@ def get_latest_day_prices_for_pair(pair):
 
 @app.route(api_path + '/std/<pair>', methods=['GET'])
 def get_pair_std(pair):
-    prices = db.query_pair_all(pair)
+    prices = db.query_pair_last_day(pair)
     # TODO figure out how to use float with dynamo, for now converting back and forth
     return jsonify({
         'pair': pair,
@@ -71,8 +76,10 @@ def get_pair_std(pair):
 
 @app.route(api_path + '/rank', methods=['GET'])
 def get_ranked_stds():
-    # eg: http://127.0.0.1:5000/api/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
-
+    """
+    Takes as many currency pairs as desired, see eg:
+    # http://127.0.0.1:5000/service/v1/rank?pair=btcusd&pair=ethusd&pair=daiusd
+    """
     pairs = request.args.getlist('pair', type=str)
 
     print('pairs:')

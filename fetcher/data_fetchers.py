@@ -6,7 +6,8 @@ from datetime import datetime
 
 class CryptoPriceFetcher:
     """
-
+    Fetches prices for each individual currency pair (using only bitfinex)
+    Asyncio is used as this is network/IO bound.
     """
 
     def __init__(self, base_url, pairs):

@@ -10,10 +10,11 @@ services:
       AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
       AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
 
-
   fetcher:
     build: fetcher
     depends_on:
+      - dynamodb-local
+    links:
       - dynamodb-local
     environment:
       # These are not required to be valid AWS keys to access DynamoDB locally
@@ -29,17 +30,3 @@ services:
     volumes:
       - "./docker/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
-
-  app-node:
-    depends_on:
-      - dynamodb-local
-    image: banst/awscli
-    container_name: app-node
-    ports:
-      - "8080:8080"
-    environment:
-      #      These are not required to be valid AWS keys to access DynamoDB locally
-      AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
-      AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
-    command:
-      dynamodb describe-limits --endpoint-url http://dynamodb-local:8000 --region us-west-2

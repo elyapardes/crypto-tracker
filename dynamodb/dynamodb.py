@@ -4,7 +4,7 @@ import json
 from fetcher.ddb_helpers import load_to_dynamodb
 
 # Get the service resource.
-dynamodb = boto3.resource('dynamodb', endpoint_url='http://0.0.0.0:8000')
+dynamodb = boto3.resource('dynamodb', endpoint_url='http://dynamodb-local:8000')
 
 
 # Create the DynamoDB table.

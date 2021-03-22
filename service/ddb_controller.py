@@ -2,7 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 
 
-dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000", region_name='local')
+dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb-local:8000", region_name='local')
 table = dynamodb.Table('bitfinex_pair_prices')
 
 def query_pair_all(pair):
@@ -15,8 +15,6 @@ def query_pair_all(pair):
 
 
 def query_pair_last_day(pair):
-    # if not dynamodb:
-    #     dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     table = dynamodb.Table('bitfinex_pair_prices')
     response = table.query(
@@ -29,8 +27,6 @@ def query_pair_last_day(pair):
 
 
 def query_pair_latest(pair):
-    # if not dynamodb:
-    # dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000", region_name='bla')
 
     table = dynamodb.Table('bitfinex_pair_prices')
     response = table.query(
